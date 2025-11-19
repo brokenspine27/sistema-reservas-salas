@@ -11,17 +11,24 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+#importar environ y crear lector
+import environ
+import os
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#lector - colocar despues de definir base_dir 
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR,'.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!a^yd(#t#9^e3np4ys_*a%^k8ndh3p76z%h)f64y1uvtewcwa*'
-
+SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -75,8 +82,13 @@ WSGI_APPLICATION = 'proyecto_reservas.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'XE',
+        'USER': 'system',
+        'PASSWORD': env('PASSWORD'),
+        'HOST': 'localhost',
+        'PORT': '1521',
+
     }
 }
 

@@ -13,18 +13,23 @@ def lista_salas(request):
     for sala in salas:
         reservas_hoy = Reserva.objects.filter(
             nombre_sala=sala.nombre,
-            fecha_reserva=datetime.now().date()
+            fecha_reserva=hoy
         )
         
         # Marcar si tiene reservas hoy
         sala.reservas_hoy = reservas_hoy
-
-        # Verificar si está ocupada ahora
         sala.ocupada_ahora = False
+
+        #verificar reservas activas
         for reserva in reservas_hoy:
-            if reserva.hora_inicio <= hora_actual <= reserva.hora_fin:
+            fecha_hora_actual = datetime.combine(hoy, hora_actual)
+            hora_inicio_dt = datetime.combine(hoy, reserva.hora_inicio)
+            hora_fin_dt = datetime.combine(hoy, reserva.hora_fin)
+
+            if hora_inicio_dt <= fecha_hora_actual <= hora_fin_dt:
                 sala.ocupada_ahora = True
                 break
+
     
     context = {
         'salas': salas,
