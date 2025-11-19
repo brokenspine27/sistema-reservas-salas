@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Reservar Sala{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Reservar Sala de Estudio</h2>
+    
+    <div class="alert alert-info">
+        <strong>Nota:</strong> Todas las reservas tienen una duración fija de 2 horas.
+        La hora de término se calculará automáticamente.
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+        
+        <button type="submit" class="btn btn-success">Confirmar Reserva</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

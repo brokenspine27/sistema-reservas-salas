@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Salas Disponibles{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Salas de Estudio - Hoy en ITID</h2>
+    
+    {% if salas %}
+        <div class="row">
+            {% for sala in salas %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ sala.nombre }}</h5>
+                        <p class="card-text">
+                            Capacidad: {{ sala.capacidad }} personas<br>
+                            Estado: 
+                            {% if sala.ocupada_ahora %}
+                                <span class="badge bg-danger">🚫 Ocupada ahora</span>
+                            {% else %}
+                                <span class="badge bg-success">✅ Disponible ahora</span>
+                            {% endif %}
+                        </p>
+                        
+                        <!-- Mostrar reservas del día -->
+                        <h6>Reservas de hoy:</h6>
+                        {% if sala.reservas_hoy %}
+                            <ul class="list-group">
+                                {% for reserva in sala.reservas_hoy %}
+                                <li class="list-group-item">
+                                    {{ reserva.hora_inicio }} - {{ reserva.hora_fin }} 
+                                    <br><small class="text-muted">RUT: {{ reserva.rut }}</small>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="text-muted">No hay reservas para hoy</p>
+                        {% endif %}
+                        
+                        <a href="{% url 'crear_reserva' %}" class="btn btn-primary mt-3">Reservar esta sala</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No hay salas disponibles.</p>
+    {% endif %}
+</div>
+{% endblock %}

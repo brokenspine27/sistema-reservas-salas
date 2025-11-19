@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%} Sistema de Reserva de Salas de Estudio {%endblock%}</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <span class="navbar-text">
+      Reserva tu Sala de Estudio en Biblioteca ITID
+    </span>
+    </div>
+        </nav>
+    </header>
+
+<div class="btn-group" role="group" aria-label="Basic outlined example">
+  <a href="{% url 'home' %}" class="btn btn-outline-primary">Inicio</a>
+  <a href="{% url 'crear_reserva' %}" class="btn btn-outline-primary">Reservar Sala</a>
+</div>
+
+    <main>
+        {%block content%}
+        
+        {%endblock%}
+    </main>
+</body>
+</html>
