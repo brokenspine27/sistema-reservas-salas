@@ -16,9 +16,11 @@ class ReservaForm(forms.Form):
         salas_disponibles = Sala.objects.filter(disponible=True)
         opciones = [(sala.nombre, sala.nombre) for sala in salas_disponibles]
         
-        # Que sea un dropdown
+        # Que se puedan elegir las salas. Aqui se le pasa el dato a las opciones
         self.fields['nombre_sala'].choices = opciones
 
+
+#validacion para el rut
     def clean_rut(self):
         rut = self.cleaned_data.get('rut')
         

@@ -16,7 +16,7 @@ def lista_salas(request):
             fecha_reserva=hoy
         )
         
-        # Marcar si tiene reservas hoy
+        # Marcar si tiene reservas en el momento actual
         sala.reservas_hoy = reservas_hoy
         sala.ocupada_ahora = False
 
@@ -26,6 +26,7 @@ def lista_salas(request):
             hora_inicio_dt = datetime.combine(hoy, reserva.hora_inicio)
             hora_fin_dt = datetime.combine(hoy, reserva.hora_fin)
 
+#si la hora actual esta entrmedio de las horas de la reserva, la sala esta ocupada
             if hora_inicio_dt <= fecha_hora_actual <= hora_fin_dt:
                 sala.ocupada_ahora = True
                 break
@@ -46,7 +47,7 @@ def crear_reserva(request):
         form.is_bound = True
         
         if form.is_valid():
-            # Calcular hora_fin (hora_inicio + 2 horas)
+            # Calcular hora_fin con timedelta que suma dos horas de diferencia
             hora_inicio = form.cleaned_data['hora_inicio']
             hora_inicio_dt = datetime.combine(datetime.today(), hora_inicio)
             hora_fin_dt = hora_inicio_dt + timedelta(hours=2)
